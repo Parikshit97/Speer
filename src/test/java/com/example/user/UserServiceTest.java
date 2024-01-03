@@ -60,6 +60,6 @@ class UserServiceTest {
         Assertions.assertEquals(registrationRequest.getLastName(), user.getLastName());
         Assertions.assertEquals(registrationRequest.getEmail(), user.getEmail());
         Assertions.assertEquals(registrationRequest.getPassword(), user.getPassword());
-        Assertions.assertEquals(registrationRequest.getUserName(), user.getUserName());
+        Assertions.assertEquals(registrationRequest.getUserName(), user.getUsername());
     }
 }
