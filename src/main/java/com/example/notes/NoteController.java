@@ -17,6 +17,10 @@ import java.time.LocalDateTime;
 public class NoteController {
 
     private final NoteService noteService;
+
+    /**
+        Create a new note for the authenticated user
+     */
     @PostMapping(value = "/notes")
     public void createNewNote(@RequestBody CreateNote createNote) {
         noteService.createNewNote(createNote);
