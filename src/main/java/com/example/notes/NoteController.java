@@ -29,4 +29,9 @@ public class NoteController {
     public List<Note> fetchAllNotes(@RequestHeader("Authorization") String token){
         return noteService.fetchAllNotes(token);
     }
+
+    @GetMapping(value = "/notes/{id}")
+    public Note fetchNodeById(@PathVariable(name = "id") Long noteId, @RequestHeader("Authorization") String token) {
+        return noteService.fetchNodeById(noteId, token);
+    }
 }

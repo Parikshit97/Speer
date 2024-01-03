@@ -53,4 +53,12 @@ public class NoteService {
         fetchUserFromToken(authHeader);
         return noteRepository.fetchAllByUser(user);
     }
+
+    public Note fetchNodeById(Long noteId, String authHeader) {
+        fetchUserFromToken(authHeader);
+        return noteRepository.fetchAllByUser(user).stream()
+                                                  .filter(note -> note.getNoteId() == noteId)
+                                                  .findFirst()
+                                                  .get();
+    }
 }
