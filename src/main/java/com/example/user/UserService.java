@@ -25,4 +25,10 @@ public class UserService {
         log.info("User Registration successful");
         return user;
     }
+
+    public void loginUser(LoginRequest loginRequest){
+
+    }
+
+
 }
