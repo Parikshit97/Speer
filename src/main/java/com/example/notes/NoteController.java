@@ -16,18 +16,9 @@ import java.time.LocalDateTime;
 @ComponentScan(basePackages = {"com.example.security.auth", "com.example.notes"})
 public class NoteController {
 
-    private final NoteRepository noteRepository;
-    private final UserController userController;
+    private final NoteService noteService;
     @PostMapping(value = "/notes")
     public void createNewNote(@RequestBody CreateNote createNote) {
-//        log.info("Create Note Request Received : {}", createNote);
-//        userController.userLogin(LoginRequest.builder().userName("parikshit3097").password("Parikshit@1997").build());
-        Note note = Note.builder()
-                        .title(createNote.getTitle())
-                        .content(createNote.getContent())
-                        .createdAt(LocalDateTime.now())
-                        .updatedAt(LocalDateTime.now())
-                        .build();
-        noteRepository.save(note);
+        noteService.createNewNote(createNote);
     }
 }
