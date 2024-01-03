@@ -78,4 +78,9 @@ public class NoteService {
         noteRepository.deleteById(noteId);
         return note;
     }
+
+    public List<Note> searchNotes(String query, String authHeader) {
+        fetchUserFromToken(authHeader);
+        return noteRepository.searchNotesByUser(user, query);
+    }
 }
