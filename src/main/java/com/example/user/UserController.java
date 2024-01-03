@@ -1,12 +1,14 @@
 package com.example.user;
 
 import com.example.security.auth.AuthenticationController;
+import com.example.security.auth.AuthenticationRequest;
 import com.example.security.auth.AuthenticationResponse;
 import com.example.security.auth.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,13 +24,25 @@ public class UserController {
     private final UserService userService;
     private final AuthenticationController authenticationController;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
 
     /**
-        Creates a new user account
-    */
+     * Creates a new user account
+     *
+     * @return
+     */
     @PostMapping(value = "/auth/signup")
-    public void userSignUp(@RequestBody UserRegistrationRequest userRegistrationRequest) {
-        userService.registerUser(userRegistrationRequest);
+    public ResponseEntity<AuthenticationResponse> userSignUp(@RequestBody UserRegistrationRequest userRegistrationRequest) {
+        RegisterRequest registerRequest = RegisterRequest.builder()
+                    .userName(userRegistrationRequest.getUserName())
+                    .email(userRegistrationRequest.getEmail())
+                    .password(userRegistrationRequest.getPassword())
+                    .firstname(userRegistrationRequest.getFirstName())
+                    .lastname(userRegistrationRequest.getLastName())
+                    .role(Role.USER)
+                    .build();
+        return authenticationController.register(registerRequest);
     }
 
     /**
@@ -40,17 +54,11 @@ public class UserController {
     @PostMapping(value = "/auth/login")
     public ResponseEntity<AuthenticationResponse> userLogin(@RequestBody LoginRequest loginRequest) {
 
-        User userLoginRequest = userRepository.findByUserName(loginRequest.getUserName())
-                                              .orElse(null);
+        AuthenticationRequest authenticationRequest = AuthenticationRequest.builder()
+                .username(loginRequest.getUserName())
+                .password(loginRequest.getPassword())
+                .build();
 
-        RegisterRequest registerRequest = RegisterRequest.builder()
-                    .userName(userLoginRequest.getUsername())
-                    .email(userLoginRequest.getEmail())
-                    .password(userLoginRequest.getPassword())
-                    .firstname(userLoginRequest.getFirstName())
-                    .lastname(userLoginRequest.getLastName())
-                    .build();
-
-        return authenticationController.register(registerRequest);
+        return authenticationController.authenticate(authenticationRequest);
     }
 }
