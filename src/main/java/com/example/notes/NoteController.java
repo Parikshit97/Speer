@@ -19,7 +19,7 @@ public class NoteController {
         Create a new note for the authenticated user
      */
     @PostMapping(value = "/notes")
-    public void createNewNote(@RequestBody CreateNote createNote) {
-        noteService.createNewNote(createNote);
+    public void createNewNote(@RequestBody CreateNote createNote, @RequestHeader("Authorization") String token) {
+        noteService.createNewNote(createNote, token);
     }
 }
