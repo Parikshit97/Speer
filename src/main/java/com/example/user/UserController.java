@@ -31,6 +31,12 @@ public class UserController {
         userService.registerUser(userRegistrationRequest);
     }
 
+    /**
+
+        Receive authentication token when an existing user
+        logs into the account
+
+     */
     @PostMapping(value = "/auth/login")
     public ResponseEntity<AuthenticationResponse> userLogin(@RequestBody LoginRequest loginRequest) {
 
