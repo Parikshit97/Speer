@@ -52,4 +52,11 @@ public class NoteController {
                                    @RequestHeader("Authorization") String token) {
         return noteService.deleteExistingNote(noteId, token);
     }
+
+    @GetMapping("/search")
+    public List<Note> searchNotes(@RequestParam(name = "q") String query,
+                                  @RequestHeader("Authorization") String token) {
+        List<Note> searchResults = noteService.searchNotes(query, token);
+        return searchResults;
+    }
 }
