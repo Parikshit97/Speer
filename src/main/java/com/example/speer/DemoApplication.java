@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.bind.annotation.RestController;
 
-@SpringBootApplication(scanBasePackages = {"com.example.user", "com.example.aut"})
+@SpringBootApplication(scanBasePackages = {"com.example.user", "com.example.notes"})
 @RestController
-@EnableJpaRepositories("com.example.user")
-@EntityScan("com.example.user")
+@EnableJpaRepositories({"com.example.user", "com.example.notes"})
+@EntityScan({"com.example.user", "com.example.notes"})
 public class DemoApplication {
 
     public static void main(String[] args) {
