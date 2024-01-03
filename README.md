@@ -8,3 +8,4 @@ Back End Assessment
 4. <b>feature/notes:</b> logged in user is able to post notes in the database <code> Create a new note for the authenticated user </code><br>
 5. <b>feature/fetchallnotes:</b> logged in user is able to fetch the notes posted by him/her from db <code> Get a list of all notes for the authenticated user </code><br>
 6. <b>feature/notebyid:</b> logged in user is able to fetch the notes posted by him/her from db by note id code> Get a note by ID for the authenticated user </code><br>
+7. <b>feature/updateExistingNote:</b> logged in user is able to update the notes posted by him/her from db by note id code> Update an existing note by ID for the authenticated user </code><br>
