@@ -71,4 +71,11 @@ public class NoteService {
         noteRepository.save(note);
         return fetchNodeById(noteId, authHeader);
     }
+
+    public Note deleteExistingNote(Long noteId, String authHeader) {
+        fetchUserFromToken(authHeader);
+        Note note = fetchNodeById(noteId, authHeader);
+        noteRepository.deleteById(noteId);
+        return note;
+    }
 }

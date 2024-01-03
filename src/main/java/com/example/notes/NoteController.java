@@ -46,4 +46,10 @@ public class NoteController {
             return noteService.updateExisitngNote(noteId, note, updateNote, token);
         }
     }
+
+    @DeleteMapping(value = "/notes/{id}")
+    public Note deleteExistingNote(@PathVariable(name = "id") Long noteId,
+                                   @RequestHeader("Authorization") String token) {
+        return noteService.deleteExistingNote(noteId, token);
+    }
 }
