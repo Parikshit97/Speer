@@ -6,6 +6,7 @@ import com.example.user.User;
 import com.example.user.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -60,5 +61,14 @@ public class NoteService {
                                                   .filter(note -> note.getNoteId() == noteId)
                                                   .findFirst()
                                                   .get();
+    }
+
+    public Note updateExisitngNote(Long noteId, Note note, UpdateNote patch, String authHeader) {
+        fetchUserFromToken(authHeader);
+        note.setUpdatedAt(LocalDateTime.now());
+        note.setTitle(patch.getTitle());
+        note.setContent(patch.getContent());
+        noteRepository.save(note);
+        return fetchNodeById(noteId, authHeader);
     }
 }

@@ -34,4 +34,16 @@ public class NoteController {
     public Note fetchNodeById(@PathVariable(name = "id") Long noteId, @RequestHeader("Authorization") String token) {
         return noteService.fetchNodeById(noteId, token);
     }
+
+    @PutMapping(value = "/notes/{id}")
+    public Note updateExisitngNote(@PathVariable(name = "id") Long noteId,
+                                   @RequestBody UpdateNote updateNote,
+                                   @RequestHeader("Authorization") String token) {
+        Note note = fetchNodeById(noteId, token);
+        if(note == null){
+            return null;
+        }else{
+            return noteService.updateExisitngNote(noteId, note, updateNote, token);
+        }
+    }
 }
