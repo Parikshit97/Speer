@@ -8,10 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
-@AllArgsConstructor
 public class NoteService {
     private NoteRepository noteRepository;
 
@@ -19,11 +19,26 @@ public class NoteService {
 
     private UserRepository userRepository;
 
-    public void createNewNote(CreateNote createNote, String authHeader) {
-        final String jwt = authHeader.substring(7);
-        final String username = jwtService.extractUsername(jwt);
-        final User user = userRepository.findByUserName(username).get();
+    NoteService(NoteRepository noteRepository,
+                JWTService jwtService,
+                UserRepository userRepository){
+        this.noteRepository = noteRepository;
+        this.jwtService = jwtService;
+        this.userRepository = userRepository;
+    }
 
+    private String jwt;
+    private String username;
+    private User user;
+
+    private void fetchUserFromToken(String authHeader){
+        jwt = authHeader.substring(7);
+        username = jwtService.extractUsername(jwt);
+        user = userRepository.findByUserName(username).get();
+    }
+
+    public void createNewNote(CreateNote createNote, String authHeader) {
+        fetchUserFromToken(authHeader);
         Note note = Note.builder()
                 .title(createNote.getTitle())
                 .content(createNote.getContent())
@@ -32,5 +47,10 @@ public class NoteService {
                 .user(user)
                 .build();
         noteRepository.save(note);
+    }
+
+    public List<Note> fetchAllNotes(String authHeader) {
+        fetchUserFromToken(authHeader);
+        return noteRepository.fetchAllByUser(user);
     }
 }
