@@ -1,5 +1,9 @@
-package com.example.user;
+package com.example.user.userService;
 
+import com.example.user.userEntities.LoginRequest;
+import com.example.user.userEntities.User;
+import com.example.user.userEntities.UserRegistrationRequest;
+import com.example.user.userRepository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

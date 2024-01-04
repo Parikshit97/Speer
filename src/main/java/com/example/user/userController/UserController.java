@@ -1,20 +1,20 @@
-package com.example.user;
+package com.example.user.userController;
 
-import com.example.notes.CreateNote;
-import com.example.notes.Note;
-import com.example.notes.NoteRepository;
 import com.example.security.auth.AuthenticationController;
 import com.example.security.auth.AuthenticationRequest;
 import com.example.security.auth.AuthenticationResponse;
 import com.example.security.auth.RegisterRequest;
+import com.example.user.userEntities.LoginRequest;
+import com.example.user.userEntities.Role;
+import com.example.user.userEntities.UserRegistrationRequest;
+import com.example.user.userRepository.UserRepository;
+import com.example.user.userService.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 
 @Slf4j
 @RestController

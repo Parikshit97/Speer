@@ -1,6 +1,6 @@
-package com.example.notes;
+package com.example.notes.noteEntities;
 
-import com.example.user.User;
+import com.example.user.userEntities.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,6 +33,9 @@ public class Note {
 
     @Column(name = "updatedAt", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updatedAt;
+
+//    @Embedded
+//    private SharingDetails sharingDetails;
 
     @PreUpdate
     protected void onUpdate() {

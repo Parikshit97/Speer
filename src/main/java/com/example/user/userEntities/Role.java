@@ -1,4 +1,4 @@
-package com.example.user;
+package com.example.user.userEntities;
 
 public enum Role {
     USER,

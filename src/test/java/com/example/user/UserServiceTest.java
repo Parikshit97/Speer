@@ -1,6 +1,10 @@
 package com.example.user;
 
 
+import com.example.user.userEntities.User;
+import com.example.user.userEntities.UserRegistrationRequest;
+import com.example.user.userRepository.UserRepository;
+import com.example.user.userService.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

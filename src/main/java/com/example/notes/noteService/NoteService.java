@@ -1,12 +1,16 @@
-package com.example.notes;
+package com.example.notes.noteService;
 
 
 import com.example.config.JWTService;
-import com.example.user.User;
-import com.example.user.UserRepository;
-import lombok.AllArgsConstructor;
+import com.example.notes.noteEntities.CreateNote;
+import com.example.notes.noteEntities.Note;
+import com.example.notes.noteEntities.NoteShare;
+import com.example.notes.noteEntities.UpdateNote;
+import com.example.notes.noteRepository.NoteRepository;
+import com.example.notes.noteRepository.NoteShareRepository;
+import com.example.user.userEntities.User;
+import com.example.user.userRepository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,18 +18,23 @@ import java.util.List;
 @Slf4j
 @Service
 public class NoteService {
-    private NoteRepository noteRepository;
+    private final NoteRepository noteRepository;
 
-    private JWTService jwtService;
+    private final JWTService jwtService;
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    private final NoteShareRepository noteShareRepository;
 
     NoteService(NoteRepository noteRepository,
                 JWTService jwtService,
-                UserRepository userRepository){
+                UserRepository userRepository,
+                NoteShareRepository noteShareRepository
+    ){
         this.noteRepository = noteRepository;
         this.jwtService = jwtService;
         this.userRepository = userRepository;
+        this.noteShareRepository = noteShareRepository;
     }
 
     private String jwt;
@@ -82,5 +91,30 @@ public class NoteService {
     public List<Note> searchNotes(String query, String authHeader) {
         fetchUserFromToken(authHeader);
         return noteRepository.searchNotesByUser(user, query);
+    }
+
+    public NoteShare shareNote(Long noteId, Integer sharedWithUserId, String authHeader) {
+        fetchUserFromToken(authHeader);
+        User sharedWithUser = userRepository.findById(sharedWithUserId)
+                                            .orElse(null);
+        if(sharedWithUserId == null){
+            return null;
+        }
+
+        Note note = noteRepository.findById(noteId)
+                                  .orElse(null);
+        if(note == null){
+            return null;
+        }
+
+        NoteShare noteShare = null;
+        if (noteShareRepository.findByNoteAndSharedWithUser(note, sharedWithUser) == null) {
+            noteShare = NoteShare.builder()
+                                            .note(note)
+                                            .sharedWithUser(sharedWithUser)
+                                            .build();
+        }
+        NoteShare savedNoteShare = noteShareRepository.saveAndFlush(noteShare);
+        return savedNoteShare;
     }
 }

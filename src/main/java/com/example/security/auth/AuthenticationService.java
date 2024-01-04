@@ -2,9 +2,9 @@ package com.example.security.auth;
 
 
 import com.example.config.JWTService;
-import com.example.user.Role;
-import com.example.user.User;
-import com.example.user.UserRepository;
+import com.example.user.userEntities.Role;
+import com.example.user.userEntities.User;
+import com.example.user.userRepository.UserRepository;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
