@@ -1,4 +1,4 @@
-package com.example.notes;
+package com.example.notes.noteEntities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateNote {
+public class CreateNote {
     private String title;
     private String content;
 }

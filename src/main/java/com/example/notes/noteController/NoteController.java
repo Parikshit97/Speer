@@ -1,5 +1,10 @@
-package com.example.notes;
+package com.example.notes.noteController;
 
+import com.example.notes.noteEntities.CreateNote;
+import com.example.notes.noteEntities.Note;
+import com.example.notes.noteEntities.NoteShare;
+import com.example.notes.noteEntities.UpdateNote;
+import com.example.notes.noteService.NoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.ComponentScan;
@@ -21,7 +26,8 @@ public class NoteController {
         Create a new note for the authenticated user
      */
     @PostMapping(value = "/notes")
-    public void createNewNote(@RequestBody CreateNote createNote, @RequestHeader("Authorization") String token) {
+    public void createNewNote(@RequestBody CreateNote createNote,
+                              @RequestHeader("Authorization") String token) {
         noteService.createNewNote(createNote, token);
     }
 
@@ -31,7 +37,8 @@ public class NoteController {
     }
 
     @GetMapping(value = "/notes/{id}")
-    public Note fetchNodeById(@PathVariable(name = "id") Long noteId, @RequestHeader("Authorization") String token) {
+    public Note fetchNodeById(@PathVariable(name = "id") Long noteId,
+                              @RequestHeader("Authorization") String token) {
         return noteService.fetchNodeById(noteId, token);
     }
 
@@ -58,5 +65,12 @@ public class NoteController {
                                   @RequestHeader("Authorization") String token) {
         List<Note> searchResults = noteService.searchNotes(query, token);
         return searchResults;
+    }
+
+    @PostMapping("/notes/{id}/share")
+    public NoteShare shareNote(@PathVariable(name = "id") Long noteId,
+                               @RequestParam(name = "sharedWithUserId") Integer sharedWithUserId,
+                               @RequestHeader("Authorization") String token) {
+        return noteService.shareNote(noteId, sharedWithUserId, token);
     }
 }

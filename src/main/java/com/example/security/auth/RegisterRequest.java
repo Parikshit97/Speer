@@ -1,6 +1,6 @@
 package com.example.security.auth;
 
-import com.example.user.Role;
+import com.example.user.userEntities.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
