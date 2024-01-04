@@ -23,11 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @ComponentScan(basePackages = {"com.example.security.auth", "com.example.notes"})
 public class UserController {
 
-    private final UserService userService;
     private final AuthenticationController authenticationController;
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-
 
     /**
      * Creates a new user account
