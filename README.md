@@ -26,6 +26,8 @@ I have used Spring framework in Java and Postgres database to develop the applic
   <li>Run eureka (server) first and then Speer</li>
 </ol>
 
+<i>Please note that the entities (tables) used in the project can be found in directories ending with 'entities' in their name.</i>
+
 <h3>API testing - Curls</h3>
 <i>Please change as per requirement. First you will need to sign up, it will give you the token, use that token to login and perform all operations as mentioned in assessment.</i>
 
