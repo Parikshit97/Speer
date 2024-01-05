@@ -15,6 +15,9 @@ Back End Assessment
 <li><b>feature/searchBasedOnQuery:</b> logged in user is able to search the notes posted by him/her from db by search query <code> Search for notes based on keywords for the authenticated user. </code></li>
 </ol>
 
+<h3>Details explaining the choice of framework/db/ any 3rd party tools</h3>
+I have used Spring framework in Java and Postgres database to develop the application. I find it pretty easy to understand the syntax and OOP in Java. In addition to it, I have been working in Java for quite some time now.
+
 <h3>Project Setup</h3>
 <ol>
   <li>Create a folder locally.</li>
